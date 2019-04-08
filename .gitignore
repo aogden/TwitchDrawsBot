@@ -1,0 +1,7 @@
+.env
+*.js
+*.js.map
+dist/*
+!gulpfile.js
+commands*.txt
+node_modules

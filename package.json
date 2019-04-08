@@ -1,0 +1,25 @@
+{
+  "name": "twitch-chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node index.js",
+    "gencommands": "node pixelgen.js"
+  },
+  "author": "aogden",
+  "license": "ISC",
+  "dependencies": {
+    "@types/lodash": "^4.14.123",
+    "dotenv": "^7.0.0",
+    "get-pixels": "^3.3.2",
+    "lodash": "^4.17.11",
+    "twitch-bot": "^1.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^11.13.0",
+    "typescript": "^3.4.1"
+  }
+}
