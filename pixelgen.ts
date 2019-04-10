@@ -2,8 +2,11 @@ import * as pixels from 'get-pixels'
 import * as fs from 'fs'
 import * as _ from 'lodash'
 import * as path from 'path'
+import {COMMAND_SOURCE} from './index';
 
-pixels('https://i.imgur.com/ZU48OtS.png', (err, pixData) => {
+const imgUrl = 'https://i.imgur.com/ZU48OtS.png';
+
+pixels(imgUrl, (err, pixData) => {
 	// console.log('got pixels', pixData);
 	let commands = [];
 	const width = pixData.shape[0];
@@ -37,5 +40,5 @@ pixels('https://i.imgur.com/ZU48OtS.png', (err, pixData) => {
 	commands.forEach(el => {
 		commandString += el + `\n`
 	})
-	fs.writeFileSync(path.resolve(__dirname,'commands.txt'), commandString);
+	fs.writeFileSync(path.resolve(__dirname,COMMAND_SOURCE), commandString);
 });

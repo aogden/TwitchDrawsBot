@@ -3,6 +3,8 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as dotenv from 'dotenv'
 
+export const COMMAND_SOURCE = 'commands.txt';
+
 dotenv.config();
 
 const bot = new twitch({
@@ -11,17 +13,34 @@ const bot = new twitch({
   channels: [process.env.CHANNEL]
 });
 
+let commandQueueGlobal = [];
+const commandString = fs.readFileSync(path.resolve(__dirname,COMMAND_SOURCE), "utf8");
+commandQueueGlobal = commandString.split('\n');
+
+class Worker {
+	public async start(commandQueue:string[]) {
+		return new Promise((resolve, reject) => {
+			const didWork = this.consume(commandQueue);
+			if(!didWork) {resolve();}
+		})
+	}
+	private consume(commandQueue):boolean {
+		const command = commandQueue.shift();
+		if(command) {
+			bot.say(command, process.env.CHANNEL, err => {
+				console.log(`say callback ${err}`)
+			})
+			console.log(`sent command ${command}`);
+			setTimeout(() => { this.consume(commandQueue); }, 2000);
+		}
+		return !!command;
+	}
+}
+
 console.log('joining');
 bot.on('join', () => {
-	const commandString = fs.readFileSync(path.resolve(__dirname,'commands.txt'), "utf8");
-	const commands = commandString.split('\n');
-	// console.log(commands);
-	let count = 0;
-	//TODO: don't schedule all these up front
-	commands.forEach(command => {
-		setTimeout(() => { bot.say(command) }, count * 2000);
-		count += 1;
-	});
+	const worker = new Worker();
+	worker.start(commandQueueGlobal);
 });
 
 bot.on('error', err => {
