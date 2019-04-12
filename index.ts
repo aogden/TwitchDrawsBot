@@ -27,9 +27,7 @@ class Worker {
 	private consume(commandQueue):boolean {
 		const command = commandQueue.shift();
 		if(command) {
-			bot.say(command, process.env.CHANNEL, err => {
-				console.log(`say callback ${err}`)
-			})
+			bot.say(command);
 			console.log(`sent command ${command}`);
 			setTimeout(() => { this.consume(commandQueue); }, 2000);
 		}
