@@ -23,7 +23,7 @@ pixels(IMG_URL, (err, pixData) => {
 		for (let x = 0; x < width; x++) {
 			const index = (y*width+x)*4
 			const color = pixData.data.slice(index, index + 4);
-			if(color[0] <= BLACK_NO_OP_THRESHOLD) {
+			if(color[0] <= BLACK_NO_OP_THRESHOLD && color[1] <= BLACK_NO_OP_THRESHOLD && color[2] <= BLACK_NO_OP_THRESHOLD) {
 				//black skip it
 				continue
 			}
