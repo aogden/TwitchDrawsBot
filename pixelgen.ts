@@ -2,10 +2,10 @@ import * as pixels from 'get-pixels'
 import * as fs from 'fs'
 import * as _ from 'lodash'
 import * as path from 'path'
-import {COMMAND_SOURCE} from './index';
+import {COMMAND_SOURCE} from './bot';
 
-const IMG_URL = 'https://i.imgur.com/ZU48OtS.png';
-const ORIGIN_OFFSETS = {x:100, y:50};
+const IMG_URL = 'https://i.imgur.com/hwAlcbT.png';
+const ORIGIN_OFFSETS = {x:0, y:600};
 const BLACK_NO_OP_THRESHOLD = 10;
 
 console.log(`generating draw commands from source ${IMG_URL}`)
